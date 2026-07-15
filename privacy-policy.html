@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy - HUTBAZ</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+    --primary:#2563eb;
+    --accent:#16a34a;
+    --warning:#fbbf24;
+    --gradient:linear-gradient(135deg,#2563eb 0%,#1e40af 100%);
+    --bg:#f8fafc;
+    --card:#ffffff;
+    --text:#1e293b;
+    --muted:#64748b;
+    --border:#dbeafe;
+    --shadow:0 4px 20px rgba(37,99,235,0.08);
+    --shadow-hover:0 20px 50px rgba(37,99,235,0.15);
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins';}
+body{background:var(--bg); color:var(--text);}
+
+/* Header */
+.header{
+    background:rgba(255,255,255,0.85); backdrop-filter:blur(20px);
+    padding:18px 25px; display:flex; align-items:center; gap:15px;
+    box-shadow:var(--shadow); position:sticky; top:0; z-index:100; border-bottom:3px solid transparent;
+    border-image:var(--gradient) 1;
+}
+.back-btn{font-size:24px;color:var(--primary);text-decoration:none; transition:.3s;display:flex;align-items:center;gap:8px;font-weight:700;}
+.back-btn:hover{transform:translateX(-3px);}
+.logo{font-family:'Poppins';font-size:24px;font-weight:900;}
+.logo span:first-child{background:var(--primary);color:#fff;padding:4px 10px;border-radius:8px;}
+.logo span:last-child{color:#1e293b;}
+
+/* Hero */
+.hero{
+    background:var(--gradient); color:#fff; text-align:center; padding:80px 20px 100px;
+    position:relative; overflow:hidden;
+}
+.hero::after{
+    content:''; position:absolute; bottom:0; left:0; width:100%; height:60px;
+    background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120"><path fill="%23f8fafc" d="M0,64L48,80C96,96,192,128,288,128C384,128,480,96,576,90.7C672,85,768,107,864,112C960,117,1056,107,1152,96C1248,85,1344,75,1392,69.3L1440,64L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z"></path></svg>') no-repeat bottom;
+    background-size:cover;
+}
+.hero .icon{font-size:70px;margin-bottom:20px;animation:float 3s ease-in-out infinite;}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
+.hero h1{font-size:42px;font-weight:900;margin-bottom:12px;}
+.hero p{font-size:18px;opacity:0.95;max-width:650px;margin:0 auto;font-weight:500;}
+
+.container{max-width:1000px;margin:-50px auto 80px;padding:0 20px;position:relative;z-index:2;}
+
+/* Content Box */
+.content-box{
+    background:var(--card);border-radius:28px;padding:50px;box-shadow:var(--shadow); border:1px solid var(--border);
+}
+.last-update{background:linear-gradient(90deg,#dbeafe,#dcfce7); padding:14px 22px; border-radius:14px; border-left:5px solid var(--primary); margin-bottom:35px; font-weight:700; color:#1e40af;display:flex;align-items:center;gap:10px;}
+.last-update i{color:var(--primary);}
+
+.section{margin-bottom:40px;}
+.section h2{
+    font-size:26px;font-weight:900;margin-bottom:18px;display:flex;align-items:center;gap:14px;
+    color:var(--primary);
+}
+.section h2 i{color:var(--primary); font-size:24px;}
+.section p, .section li{color:var(--muted); line-height:1.9; font-size:16px; margin-bottom:14px;font-weight:500;}
+.section ul{padding-left:25px;}
+.section li::marker{color:var(--accent);font-size:18px;}
+
+.highlight-box{
+    background:linear-gradient(135deg,#eff6ff,#fef9c3,#dcfce7); border:2px solid var(--border);
+    border-radius:18px; padding:24px; margin:25px 0;display:flex;gap:15px;align-items:flex-start;
+}
+.highlight-box i{color:var(--primary);font-size:22px;margin-top:2px;}
+.highlight-box strong{color:var(--primary);font-size:16px;}
+
+.contact-cta{
+    background:var(--gradient); color:#fff; padding:40px; border-radius:24px; text-align:center; margin-top:45px;
+}
+.contact-cta h3{font-size:24px;margin-bottom:12px;font-weight:900;}
+.contact-cta p{font-size:16px;opacity:0.95;margin-bottom:5px;}
+.contact-cta a{display:inline-block; margin-top:18px; padding:16px 35px; background:#fff; color:var(--primary); 
+    border-radius:15px; text-decoration:none; font-weight:800; transition:.3s;box-shadow:0 8px 25px rgba(0,0,0,0.2);}
+.contact-cta a:hover{transform:scale(1.05) translateY(-2px); box-shadow:0 12px 35px rgba(0,0,0,0.3);}
+
+/* Footer */
+footer{background:var(--card);text-align:center;padding:40px 20px;color:var(--muted);font-size:14px;font-weight:600;border-top:1px solid var(--border);margin-top:80px;}
+footer a{color:var(--primary);margin:0 14px;text-decoration:none;font-weight:700;transition:.3s;}
+footer a:hover{color:var(--accent);text-decoration:underline;}
+
+/* Mobile */
+@media(max-width:768px){
+    .hero{padding:60px 20px 80px;}
+    .hero h1{font-size:32px;}
+    .content-box{padding:35px 25px;}
+    .section h2{font-size:22px;}
+}
+@media(max-width:480px){
+    .header{padding:16px 18px;}
+    .hero .icon{font-size:50px;}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+    <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back</a>
+    <div class="logo"><span>HUT</span><span>BAZ</span></div>
+</div>
+
+<div class="hero">
+    <div class="icon"><i class="fa-solid fa-shield-halved"></i></div>
+    <h1>Privacy Policy</h1>
+    <p>Your Data Security is Our Top Priority</p>
+</div>
+
+<div class="container">
+    <div class="content-box">
+        
+        <div class="last-update">
+            <i class="fa-solid fa-calendar-check"></i> Last Updated: <span id="date"></span>
+        </div>
+
+        <div class="section">
+            <h2><i class="fa-solid fa-database"></i> What Information We Collect?</h2>
+            <p>To provide you with the best shopping experience, we collect the following information:</p>
+            <ul>
+                <li><strong>Personal Information:</strong> Full Name, Phone Number, Email Address</li>
+                <li><strong>Delivery Information:</strong> Address, Thana, District, Division</li>
+                <li><strong>Order Information:</strong> Products Purchased, Quantity, Total Amount</li>
+                <li><strong>Technical Data:</strong> IP Address, Browser Type, Device Information</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2><i class="fa-solid fa-bullseye"></i> How We Use Your Information?</h2>
+            <ul>
+                <li>To process and deliver your orders successfully</li>
+                <li>To provide order updates and customer support</li>
+                <li>To improve our website experience and services</li>
+                <li>To notify you about new offers, products and promotions</li>
+                <li>To prevent fraud and ensure platform security</li>
+            </ul>
+        </div>
+
+        <div class="highlight-box">
+            <i class="fa-solid fa-lock"></i>
+            <div>
+                <strong>Important:</strong> We never sell, rent, or share your personal information with any third party. 
+                All your data is securely stored within HUTBAZ and only accessible by authorized Admin.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><i class="fa-solid fa-cookie-bite"></i> Cookies Policy</h2>
+            <p>We use cookies to enhance your browsing experience. Cookies help us remember your cart, login information, and preferences. 
+            You can disable cookies in your browser settings, but some features may not work properly.</p>
+        </div>
+
+        <div class="section">
+            <h2><i class="fa-solid fa-shield"></i> Data Security</h2>
+            <p>We use Firebase's enterprise-grade security to protect your data. All information is encrypted and stored securely. 
+            Only HUTBAZ Admin has access to customer data for order processing and support purposes.</p>
+        </div>
+
+        <div class="section">
+            <h2><i class="fa-solid fa-user-pen"></i> Your Rights</h2>
+            <p>You have the right to access, update, or delete your personal information at any time. 
+            You can also request a copy of your data or opt-out of marketing communications. 
+            Contact us anytime to exercise these rights.</p>
+        </div>
+
+        <div class="contact-cta">
+            <h3>Have Questions?</h3>
+            <p>If you have any questions about our Privacy Policy, feel free to contact us</p>
+            <a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact Us</a>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    © <span id="year"></span> HUTBAZ. All Rights Reserved. 
+    <div style="margin-top:15px;">
+        <a href="terms.html">Terms & Conditions</a> | 
+        <a href="contact.html">Contact</a> | 
+        <a href="index.html">Home</a>
+    </div>
+</footer>
+
+<script>
+document.getElementById('year').innerText = new Date().getFullYear();
+document.getElementById('date').innerText = new Date().toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric'});
+</script>
+
+</body>
+</html>
