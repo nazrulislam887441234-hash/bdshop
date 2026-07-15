@@ -136,7 +136,12 @@ a{text-decoration:none;color:inherit;}
 .product-body.cat{font-size:11px;color:#94a3b8;margin-bottom:6px;}
 .price-row{display:flex;align-items:center;gap:6px;margin-bottom:4px;}
 .price{color:var(--primary);font-weight:900;font-size:15px;}
-.old-price{font-size:11px;color:#94a3b8;text-decoration:line-through;}
+.old-price{
+    font-size:11px;
+    color:#ef4444;
+    text-decoration:line-through;
+    font-weight:700;
+}
 .sold{font-size:11px;color:#16a34a;font-weight:600;margin-bottom:8px;}
 .btn-add{width:100%;padding:8px;border:none;border-radius:10px;background:var(--primary);color:#fff;font-weight:700;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center;gap:5px;margin-top:auto;}
 .loading{text-align:center;padding:30px;color:var(--primary);font-weight:700;}
@@ -154,6 +159,27 @@ footer a{display:block;font-size:13px;color:#64748b;margin-bottom:8px;}
 .social{display:flex;gap:10px;margin-top:10px;}
 .social a{width:35px;height:35px;border-radius:50%;background:#f1f5f9;display:flex;align-items:center;justify-content:center;color:var(--primary);}
 .copy{text-align:center;padding-top:20px;margin-top:20px;border-top:1px solid #e2e8f0;font-size:12px;color:#94a3b8;}
+.btn-buy{
+    width:100%;
+    padding:8px;
+    margin-top:8px;
+    border:none;
+    border-radius:10px;
+    background:#16a34a;
+    color:#fff;
+    font-weight:700;
+    cursor:pointer;
+}
+.discount-box{
+    display:inline-block;
+    background:#ef4444;
+    color:#fff;
+    font-size:11px;
+    font-weight:700;
+    padding:4px 8px;
+    border-radius:6px;
+    margin-bottom:8px;
+}
 </style>
 </head>
 <body>
@@ -275,6 +301,20 @@ function getProductMeta(id){
     return meta[id];
 }
 
+window.buyNow = (id) => {
+    const product = allProducts.find(p => p.id == id);
+
+    let cart = [{
+        ...product,
+        price:Number(product.currentPrice),
+        qty:1
+    }];
+
+    localStorage.setItem("hutbaz_cart", JSON.stringify(cart));
+
+    window.location.href = "checkout.html";
+}
+
 // 1. Load Banner
 async function loadBanners(){
     const q = query(collection(db, "banners"), orderBy("createdAt", "desc"));
@@ -334,9 +374,12 @@ function renderProducts(products){
     products.forEach(product => {
         const meta = getProductMeta(product.id);
         const current = Number(product.currentPrice || 0);
-        const old = Number(product.oldPrice || 0);
-        const discount = old > current? Math.round(((old - current) / old) * 100) : 0;
-        const wishlistClass = meta.liked? 'active' : '';
+const old = Number(product.oldPrice || 0);
+
+const discount = old > current ? Math.round(((old - current) / old) * 100) : 0;
+const saveAmount = old > current ? old - current : 0;
+
+const wishlistClass = meta.liked ? 'active' : '';
         const catName = allCategories.find(c => c.id == product.categoryId)?.name || '';
 
         let badges = '';
@@ -354,12 +397,26 @@ function renderProducts(products){
                 <div class="rating"><i class="fa-solid fa-star"></i> ${meta.rating} · ${meta.reviews} reviews</div>
                 <h4>${product.name}</h4>
                 <div class="cat">${catName}</div>
-             <div class="price-row">
+          <div class="price-row">
     <div class="price">৳ ${current}</div>
     ${old > current ? `<div class="old-price">৳ ${old}</div>` : ''}
 </div>
-                <div class="sold">${meta.sold}+ sold</div>
-                <button class="btn-add" onclick="event.stopPropagation(); addToCart('${product.id}')"><i class="fa-solid fa-cart-shopping"></i> Add to Cart</button>
+
+${old > current ? `
+<div class="discount-box">
+    Save ৳ ${saveAmount}
+</div>
+` : ''}
+
+<div class="sold">${meta.sold}+ sold</div>
+
+<button class="btn-add" onclick="event.stopPropagation(); addToCart('${product.id}')">
+    <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+</button>
+
+<button class="btn-buy" onclick="event.stopPropagation(); buyNow('${product.id}')">
+    <i class="fa-solid fa-bolt"></i> Buy Now
+</button>          
             </div>
         </div>`;
     });
