@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Cart - HUTBAZ</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{--primary:#2563eb;--accent:#fbbf24;--success:#16a34a;--danger:#ef4444;--gradient:linear-gradient(135deg,#2563eb,#1e40af);}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#f8fafc;padding:20px;min-height:100vh;}
+
+/* Header */
+.top-header{max-width:1100px;margin:0 auto 20px;display:flex;align-items:center;justify-content:space-between;}
+.logo{font-size:24px;font-weight:900;}
+.logo span:first-child{background:var(--primary);color:#fff;padding:5px 10px;border-radius:10px;}
+.logo span:last-child{color:#1e293b;}
+
+/* Card */
+.card{max-width:1100px;margin:0 auto;background:#fff;border-radius:25px;padding:30px;box-shadow:0 20px 60px rgba(37,99,235,.1);border:1px solid #e2e8f0;}
+.card h2{font-size:24px;font-weight:800;margin-bottom:25px;display:flex;align-items:center;gap:10px;color:#1e293b;}
+
+/* Cart Item */
+.cart-item{display:flex;gap:20px;border:1px solid #f1f5f9;padding:20px;border-radius:18px;margin-bottom:15px;background:linear-gradient(135deg,#ffffff,#f8fafc);transition:.3s;align-items:center;}
+.cart-item:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(37,99,235,.12);border-color:var(--primary);}
+.cart-item img{width:100px;height:100px;object-fit:cover;border-radius:15px;border:2px solid #eff6ff;}
+.info{flex:1;}
+.info h4{font-size:16px;font-weight:700;margin-bottom:6px;color:#1e293b;}
+.info.category{font-size:12px;color:#64748b;margin-bottom:8px;}
+.price{font-weight:800;color:var(--primary);font-size:18px;}
+.price small{font-size:12px;color:#94a3b8;font-weight:400;}
+.qty-box{display:flex;gap:10px;align-items:center;margin-top:10px;}
+.qty-box label{font-size:12px;color:#64748b;font-weight:600;}
+.qty{display:flex;gap:8px;align-items:center;background:#eff6ff;border-radius:12px;padding:4px;}
+.qty button{width:32px;height:32px;border:none;border-radius:8px;background:var(--primary);color:#fff;cursor:pointer;font-weight:800;font-size:16px;transition:.2s;}
+.qty button:hover{background:#1e40af;}
+.qty span{min-width:30px;text-align:center;font-weight:700;}
+.delete-btn{color:#fff;background:var(--danger);border:none;width:40px;height:40px;border-radius:12px;cursor:pointer;transition:.2s;font-size:16px;}
+.delete-btn:hover{background:#dc2626;transform:scale(1.1);}
+
+/* Summary */
+.summary{border-top:2px dashed #e2e8f0;padding-top:20px;margin-top:20px;}
+.summary-row{display:flex;justify-content:space-between;margin-bottom:10px;font-size:14px;color:#64748b;}
+.summary-row.total{font-size:20px;font-weight:800;color:#1e293b;margin-top:10px;}
+.summary-row.total span:last-child{color:var(--primary);}
+
+.checkout-btn{width:100%;padding:18px;margin-top:20px;background:var(--gradient);border:none;border-radius:18px;color:#fff;font-weight:800;font-size:18px;cursor:pointer;transition:.3s;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 8px 25px rgba(37,99,235,.3);}
+.checkout-btn:hover{transform:translateY(-2px);box-shadow:0 12px 35px rgba(37,99,235,.4);}
+.checkout-btn:disabled{background:#cbd5e1;cursor:not-allowed;box-shadow:none;}
+
+.empty{text-align:center;color:#94a3b8;padding:60px 20px;}
+.empty i{font-size:60px;color:#dbeafe;margin-bottom:15px;}
+.empty h3{font-size:18px;color:#64748b;margin-bottom:8px;}
+.empty p{font-size:14px;}
+
+@media(max-width:768px){
+  .cart-item{flex-direction:column;align-items:flex-start;}
+  .cart-item img{width:100%;height:150px;}
+}
+</style>
+</head>
+<body>
+
+<div class="top-header">
+    <div class="logo"><span>HUT</span><span>BAZ</span></div>
+    <a href="index.html" style="color:var(--primary);font-weight:700;"><i class="fa-solid fa-arrow-left"></i> Continue Shopping</a>
+</div>
+
+<div class="card">
+    <h2><i class="fa-solid fa-cart-shopping" style="color:var(--primary);"></i> My Shopping Cart</h2>
+    <div id="cartList"></div>
+
+    <div class="summary" id="summaryBox" style="display:none;">
+        <div class="summary-row">
+            <span>Subtotal</span>
+            <span id="subtotal">৳0.00</span>
+        </div>
+        <div class="summary-row">
+            <span>Delivery</span>
+            <span>Free</span>
+        </div>
+        <div class="summary-row total">
+            <span>Total</span>
+            <span id="total">৳0.00</span>
+        </div>
+    </div>
+
+    <button class="checkout-btn" id="checkoutBtn" onclick="goCheckout()">
+        <i class="fa-solid fa-lock"></i> Proceed to Checkout
+    </button>
+</div>
+
+<script>
+let cart = JSON.parse(localStorage.getItem('hutbaz_cart')) || [];
+
+function renderCart(){
+    const list = document.getElementById('cartList');
+    const summaryBox = document.getElementById('summaryBox');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+
+    if(cart.length == 0){
+        list.innerHTML = `
+        <div class='empty'>
+            <i class="fa-solid fa-cart-shopping"></i>
+            <h3>Your Cart is Empty</h3>
+            <p>Add some products to get started</p>
+        </div>`;
+        document.getElementById('total').innerText = '৳0.00'; // 1. Changed here
+        document.getElementById('subtotal').innerText = '৳0.00'; // 2. Changed here
+        summaryBox.style.display = 'none';
+        checkoutBtn.disabled = true;
+        return;
+    }
+
+    summaryBox.style.display = 'block';
+    checkoutBtn.disabled = false;
+    list.innerHTML = '';
+    let total = 0;
+
+    cart.forEach((item, i) => {
+        total += item.price * item.qty;
+        list.innerHTML += `
+        <div class="cart-item">
+          <img src="${item.images?.[0] || item.image}" alt="${item.name}">
+            <div class="info">
+                <h4>${item.name}</h4>
+                <div class="category">${item.category || 'General'}</div>
+                <p class="price">৳${item.price} <small>each</small></p> // 3. Changed here
+                <div class="qty-box">
+                    <label>Quantity:</label>
+                    <div class="qty">
+                        <button onclick="updateQty(${i}, -1)"><i class="fa-solid fa-minus"></i></button>
+                        <span>${item.qty}</span>
+                        <button onclick="updateQty(${i}, 1)"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+            <button class="delete-btn" onclick="removeItem(${i})"><i class="fa-solid fa-trash"></i></button>
+        </div>`;
+    });
+
+    document.getElementById('subtotal').innerText = '৳' + total.toFixed(2); // 4. Changed here
+    document.getElementById('total').innerText = '৳' + total.toFixed(2); // 5. Changed here
+}
+
+function updateQty(i, change){
+    cart[i].qty += change;
+    if(cart[i].qty < 1) cart[i].qty = 1;
+    localStorage.setItem('hutbaz_cart', JSON.stringify(cart));
+    renderCart();
+    updateHeaderCart();
+}
+
+function removeItem(i){
+    cart.splice(i,1);
+    localStorage.setItem('hutbaz_cart', JSON.stringify(cart));
+    renderCart();
+    updateHeaderCart();
+}
+
+function goCheckout(){
+    if(cart.length == 0){
+        alert("Your cart is empty");
+        return;
+    }
+    window.location.href = "checkout.html";
+}
+
+function updateHeaderCart(){
+    const total = cart.reduce((sum, item) => sum + item.qty, 0);
+    const cartCount = document.getElementById('cartCount');
+    if(cartCount) cartCount.innerText = total;
+}
+
+renderCart();
+</script>
+</body>
+</html>
