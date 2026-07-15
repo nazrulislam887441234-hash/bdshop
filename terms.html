@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms & Conditions - HUTBAZ</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+    --primary:#2563eb;
+    --accent:#16a34a;
+    --warning:#fbbf24;
+    --danger:#ef4444;
+    --gradient:linear-gradient(135deg,#2563eb 0%,#1e40af 100%);
+    --bg:#f8fafc;
+    --card:#ffffff;
+    --text:#1e293b;
+    --muted:#64748b;
+    --border:#dbeafe;
+    --shadow:0 4px 20px rgba(37,99,235,0.08);
+    --shadow-hover:0 20px 50px rgba(37,99,235,0.15);
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins';}
+body{background:var(--bg); color:var(--text);}
+
+/* Header */
+.header{
+    background:rgba(255,255,255,0.9); backdrop-filter:blur(20px);
+    padding:18px 25px; display:flex; align-items:center; gap:15px;
+    box-shadow:var(--shadow); position:sticky; top:0; z-index:100; border-bottom:3px solid transparent;
+    border-image:var(--gradient) 1;
+}
+.back-btn{font-size:24px;color:var(--primary);text-decoration:none; transition:.3s;display:flex;align-items:center;gap:8px;font-weight:700;}
+.back-btn:hover{transform:translateX(-3px);}
+.logo{font-size:22px;font-weight:900;}
+.logo span:first-child{background:var(--primary);color:#fff;padding:4px 10px;border-radius:8px;}
+.logo span:last-child{color:#1e293b;}
+
+/* Hero */
+.hero{
+    background:var(--gradient); color:#fff; text-align:center; padding:80px 20px 100px;
+    position:relative; overflow:hidden;
+}
+.hero::after{
+    content:''; position:absolute; bottom:0; left:0; width:100%; height:60px;
+    background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120"><path fill="%23f8fafc" d="M0,64L48,80C96,96,192,128,288,128C384,128,480,96,576,90.7C672,85,768,107,864,112C960,117,1056,107,1152,96C1248,85,1344,75,1392,69.3L1440,64L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z"></path></svg>') no-repeat bottom;
+    background-size:cover;
+}
+.hero .icon{font-size:70px;margin-bottom:20px;animation:bounce 2s infinite;}
+@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
+.hero h1{font-size:42px;font-weight:900;margin-bottom:12px;}
+.hero p{font-size:18px;opacity:0.95;max-width:650px;margin:0 auto;font-weight:500;}
+
+.container{max-width:1000px;margin:-50px auto 80px;padding:0 20px;position:relative;z-index:2;}
+
+/* Content Box */
+.content-box{
+    background:var(--card);border-radius:28px;padding:50px;box-shadow:var(--shadow); border:1px solid var(--border);
+}
+.last-update{background:linear-gradient(90deg,#dbeafe,#dcfce7); padding:14px 22px; border-radius:14px; border-left:5px solid var(--accent); margin-bottom:35px; font-weight:700; color:#166534;display:flex;align-items:center;gap:10px;}
+.last-update i{color:var(--accent);}
+
+.section{margin-bottom:40px; padding-bottom:30px; border-bottom:2px dashed var(--border);}
+.section:last-child{border-bottom:none; padding-bottom:0;}
+.section h2{
+    font-size:24px;font-weight:900;margin-bottom:18px;display:flex;align-items:center;gap:15px;
+    color:var(--primary);
+}
+.section h2 span{
+    background:var(--gradient); color:#fff; width:40px; height:40px; border-radius:12px;
+    display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:900; flex-shrink:0;
+}
+.section p, .section li{color:var(--muted); line-height:1.9; font-size:16px; margin-bottom:14px;font-weight:500;}
+.section ul{padding-left:25px;}
+.section li{position:relative; padding-left:10px;}
+.section li::marker{color:var(--accent); font-size:18px;}
+
+.warning-box{
+    background:linear-gradient(135deg,#fee2e2,#fef9c3); border-left:5px solid var(--danger);
+    border-radius:14px; padding:20px; margin:20px 0; display:flex; gap:14px;
+}
+.warning-box i{color:var(--danger); font-size:24px; margin-top:2px;}
+
+.success-box{
+    background:linear-gradient(135deg,#dcfce7,#fef9c3); border-left:5px solid var(--accent);
+    border-radius:14px; padding:20px; margin:20px 0; display:flex; gap:14px;
+}
+.success-box i{color:var(--accent); font-size:24px; margin-top:2px;}
+.success-box strong{color:var(--accent);}
+
+/* Footer */
+footer{background:var(--card);text-align:center;padding:40px 20px;color:var(--muted);font-size:14px;font-weight:600;border-top:1px solid var(--border);margin-top:80px;}
+footer a{color:var(--primary);margin:0 14px;text-decoration:none;font-weight:700;transition:.3s;}
+footer a:hover{color:var(--accent);text-decoration:underline;}
+
+/* Mobile */
+@media(max-width:768px){
+    .hero{padding:60px 20px 80px;}
+    .hero h1{font-size:32px;}
+    .content-box{padding:35px 25px;}
+    .section h2{font-size:20px;}
+}
+@media(max-width:480px){
+    .header{padding:16px 18px;}
+    .hero .icon{font-size:50px;}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+    <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back</a>
+    <div class="logo"><span>HUT</span><span>BAZ</span></div>
+</div>
+
+<div class="hero">
+    <div class="icon"><i class="fa-solid fa-file-contract"></i></div>
+    <h1>Terms & Conditions</h1>
+    <p>Please read these terms carefully before placing an order</p>
+</div>
+
+<div class="container">
+    <div class="content-box">
+        
+        <div class="last-update">
+            <i class="fa-solid fa-calendar-check"></i> Last Updated: <span id="date"></span>
+        </div>
+
+        <div class="section">
+            <h2><span>1</span> Ordering Process</h2>
+            <p>You can place orders through our website or by calling our customer support.</p>
+            <ul>
+                <li>Our representative will call you to confirm the order</li>
+                <li>Orders with incorrect information may be cancelled</li>
+                <li>If an item is out of stock, we will notify you immediately</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2><span>2</span> Pricing & Payment</h2>
+            <p>All prices listed on the website are final and inclusive of VAT.</p>
+            <div class="success-box">
+                <i class="fa-solid fa-hand-holding-dollar"></i>
+                <div>
+                    <strong>Cash on Delivery:</strong> Pay when you receive the product.<br>
+                    <strong>Advance Payment:</strong> 10% advance may be required for certain products
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span>3</span> Delivery Policy</h2>
+            <ul>
+                <li><strong>Delivery Charge:</strong> 120 BDT all over Bangladesh</li>
+                <li><strong>Delivery Time:</strong> 3-5 business days after order confirmation</li>
+                <li><strong>Coverage:</strong> We deliver all over Bangladesh</li>
+            </ul>
+            <div class="warning-box">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <div>HUTBAZ is not responsible for failed deliveries due to incorrect address or phone number.</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span>4</span> Return & Refund Policy</h2>
+            <ul>
+                <li>Report any issue within 24 hours of receiving the product</li>
+                <li>Damaged or wrong products will be replaced for free</li>
+                <li>Used products cannot be returned</li>
+                <li>Refunds will be processed within 3-7 business days</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2><span>5</span> Warranty</h2>
+            <p>For electronic products, the manufacturer's warranty applies. Please keep the warranty card and cash memo safe.</p>
+        </div>
+
+        <div class="section">
+            <h2><span>6</span> Copyright</h2>
+            <p>All content, images, and logos on this website are the property of HUTBAZ. Unauthorized use is prohibited.</p>
+        </div>
+
+        <div class="section">
+            <h2><span>7</span> Changes to Terms</h2>
+            <p>We reserve the right to modify these terms at any time. Changes will be posted on this page.</p>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    © <span id="year"></span> HUTBAZ. All Rights Reserved. 
+    <div style="margin-top:15px;">
+        <a href="privacy.html">Privacy Policy</a> | 
+        <a href="contact.html">Contact</a> | 
+        <a href="index.html">Home</a>
+    </div>
+</footer>
+
+<script>
+document.getElementById('year').innerText = new Date().getFullYear();
+document.getElementById('date').innerText = new Date().toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric'});
+</script>
+
+</body>
+</html>
