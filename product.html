@@ -4,96 +4,130 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title id="pageTitle">Product - BD SHOP</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&family=Noto+Sans+Bengali:wght@400;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
-:root{--primary:#2563eb;--accent:#16a34a;--warning:#fbbf24;--danger:#ef4444;--gradient:linear-gradient(135deg,#2563eb,#1e40af);}
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins';}
-body{background:#f8fafc;padding-bottom:100px;}
+:root{
+    --primary:#FF6B35;
+    --primary-dark:#E85A1A;
+    --accent:#FFA500;
+    --warning:#FFA500;
+    --danger:#ef4444;
+    --success:#16a34a;
+    --gradient:linear-gradient(135deg,#FF6B35 0%,#FFA500 100%);
+    --bg:#FFF8F3;
+    --card:rgba(255,255,255,0.95);
+    --text:#1A1A1A;
+    --muted:#64748B;
+    --border:#FFE4D6;
+    --shadow:0 10px 40px rgba(255,107,53,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins','Noto Sans Bengali',sans-serif;}
+body{background:linear-gradient(180deg,#FFF8F3 0%,#FFE4D6 100%);padding-bottom:100px;}
 
-/* Header */
-.header{position:sticky;top:0;background:rgba(255,255,255,.95);backdrop-filter:blur(20px);padding:15px 20px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 4px 20px rgba(37,99,235,.08);z-index:100;}
-.back-btn{font-size:22px;color:var(--primary);}
-.cart-btn{position:relative;font-size:22px;color:var(--primary);}
-.cart-count{position:absolute;top:-8px;right:-8px;background:var(--danger);color:#fff;font-size:11px;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;}
+/* Header Glass */
+.header{
+    position:sticky;top:0;background:rgba(255,255,255,.9);backdrop-filter:blur(30px);
+    padding:18px 25px;display:flex;align-items:center;justify-content:space-between;
+    box-shadow:0 4px 30px rgba(255,107,53,.1);z-index:100;border-bottom:2px solid var(--border);
+}
+.back-btn{font-size:24px;color:var(--primary);padding:8px;border-radius:12px;transition:.3s;}
+.back-btn:hover{background:rgba(255,107,53,0.1);}
+.cart-btn{position:relative;font-size:24px;color:var(--primary);padding:8px;}
+.cart-count{
+    position:absolute;top:-5px;right:-5px;background:var(--danger);color:#fff;font-size:12px;
+    width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-weight:900;box-shadow:0 3px 10px rgba(239,68,68,0.4);
+}
 
-.container{max-width:1200px;margin:0 auto;padding:20px;}
+.container{max-width:1250px;margin:0 auto;padding:25px;}
 
 /* Product Section */
 .product-wrapper{display:grid;grid-template-columns:1fr;gap:30px;}
 @media(min-width:992px){.product-wrapper{grid-template-columns:1fr 1fr;}}
 
-/* Image Gallery */
-.gallery{background:#fff;border-radius:25px;padding:20px;box-shadow:0 10px 40px rgba(37,99,235,.1);}
-.main-img{width:100%;aspect-ratio:1/1;border-radius:20px;object-fit:cover;margin-bottom:15px;}
-.thumbs{display:flex;gap:10px;overflow-x:auto;}
-.thumbs img{width:70px;height:70px;border-radius:12px;object-fit:cover;cursor:pointer;border:3px solid transparent;transition:.3s;}
-.thumbs img.active{border-color:var(--primary);}
+/* Image Gallery Premium */
+.gallery{background:var(--card);backdrop-filter:blur(20px);border-radius:30px;padding:25px;box-shadow:var(--shadow);border:2px solid rgba(255,255,255,0.5);}
+.main-img{width:100%;aspect-ratio:1/1;border-radius:25px;object-fit:cover;margin-bottom:18px;border:3px solid var(--border);}
+.thumbs{display:flex;gap:12px;overflow-x:auto;padding-bottom:5px;}
+.thumbs img{
+    width:80px;height:80px;border-radius:15px;object-fit:cover;cursor:pointer;
+    border:3px solid transparent;transition:.3s;box-shadow:0 4px 12px rgba(255,107,53,0.1);
+}
+.thumbs img.active{border-color:var(--primary);transform:scale(1.1);}
 
 /* Product Info */
-.info{background:#fff;border-radius:25px;padding:30px;box-shadow:0 10px 40px rgba(37,99,235,.1);}
-.info h1{font-size:26px;font-weight:900;margin-bottom:12px;color:#1e293b;}
-.rating{display:flex;align-items:center;gap:10px;margin-bottom:15px;}
-.stars{color:var(--warning);}
-.price-wrap{display:flex;align-items:center;gap:15px;margin:20px 0;}
-.current-price{font-size:32px;font-weight:900;color:var(--accent);}
-.old-price{font-size:18px;color:#94a3b8;text-decoration:line-through;font-weight:700;}
-.stock{color:var(--accent);font-weight:700;margin-bottom:20px;}
-.desc{color:#64748b;line-height:1.8;margin-bottom:25px;}
+.info{background:var(--card);backdrop-filter:blur(20px);border-radius:30px;padding:35px;box-shadow:var(--shadow);border:2px solid rgba(255,255,255,0.5);}
+.info h1{font-size:30px;font-weight:900;margin-bottom:15px;color:var(--text);}
+.rating{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+.stars{color:var(--warning);font-size:18px;}
+.rating span{font-weight:800;color:var(--muted);}
+.price-wrap{display:flex;align-items:center;gap:18px;margin:25px 0;}
+.current-price{font-size:38px;font-weight:900;color:var(--primary);}
+.old-price{font-size:20px;color:var(--muted);text-decoration:line-through;font-weight:700;}
+.stock{color:var(--success);font-weight:900;margin-bottom:20px;display:flex;align-items:center;gap:8px;}
+.desc{color:var(--muted);line-height:1.9;margin-bottom:30px;font-weight:600;font-size:15px;}
 
-/* Buttons */
-.btn-group{display:flex;gap:12px;margin-bottom:25px;}
-.btn{flex:1;padding:16px;border:none;border-radius:15px;font-weight:800;font-size:16px;cursor:pointer;transition:.3s;display:flex;align-items:center;justify-content:center;gap:10px;}
-.btn-cart{background:var(--gradient);color:#fff;box-shadow:0 8px 25px rgba(37,99,235,.3);}
-.btn-cart:hover{transform:translateY(-3px);}
-.btn-buy{background:var(--accent);color:#fff;}
+/* Buttons Premium */
+.btn-group{display:flex;gap:15px;margin-bottom:25px;}
+.btn{
+    flex:1;padding:18px;border:none;border-radius:18px;font-weight:900;font-size:17px;cursor:pointer;
+    transition:.3s;display:flex;align-items:center;justify-content:center;gap:10px;
+}
+.btn-cart{background:var(--gradient);color:#fff;box-shadow:0 10px 30px rgba(255,107,53,.4);}
+.btn-cart:hover{transform:translateY(-3px);box-shadow:0 15px 40px rgba(255,107,53,.5);}
+.btn-buy{background:var(--success);color:#fff;box-shadow:0 10px 30px rgba(22,163,74,.3);}
+.btn-buy:hover{transform:translateY(-3px);background:#15803D;}
 
 /* Reviews Section */
-.reviews{background:#fff;border-radius:25px;padding:30px;margin-top:25px;box-shadow:0 10px 40px rgba(37,99,235,.1);}
-.reviews h2{font-size:22px;font-weight:900;margin-bottom:20px;display:flex;align-items:center;gap:10px;}
-
-/* Add Review Form */
-.review-form{margin-bottom:30px;padding:20px;background:#eff6ff;border-radius:18px;}
-.review-form h3{font-size:16px;margin-bottom:12px;}
-.stars-input{display:flex;gap:8px;font-size:28px;color:#cbd5e1;margin-bottom:12px;cursor:pointer;}
-.stars-input i.active{color:var(--warning);}
-.review-form textarea{width:100%;padding:14px;border:2px solid #dbeafe;border-radius:12px;margin-bottom:12px;font-family:'Poppins';resize:vertical;}
-.review-form button{padding:12px 25px;background:var(--gradient);color:#fff;border:none;border-radius:12px;font-weight:800;cursor:pointer;}
-
-/* Review List */
-.review-item{border-bottom:1px solid #f1f5f9;padding:18px 0;}
-.review-item:last-child{border:none;}
-.review-header{display:flex;justify-content:space-between;margin-bottom:8px;}
-.review-user{font-weight:800;}
-.review-date{font-size:12px;color:#94a3b8;}
-.review-stars{color:var(--warning);margin-bottom:6px;}
-.review-text{color:#475569;line-height:1.7;}
-
-.loading{text-align:center;padding:80px;color:var(--primary);font-weight:800;font-size:18px;}
-
-/* Sticky Add to Cart Mobile */
-.sticky-cart{position:fixed;bottom:0;left:0;right:0;background:#fff;padding:15px 20px;box-shadow:0 -5px 30px rgba(0,0,0,.1);display:flex;gap:12px;z-index:99;}
-@media(min-width:992px){.sticky-cart{display:none;}}
-.discount-badge{
-    display:inline-block;
-    background:#ef4444;
-    color:#fff;
-    padding:6px 12px;
-    border-radius:8px;
-    font-size:13px;
-    font-weight:700;
-    margin-bottom:8px;
+.reviews{background:var(--card);backdrop-filter:blur(20px);border-radius:30px;padding:35px;margin-top:30px;box-shadow:var(--shadow);border:2px solid rgba(255,255,255,0.5);}
+.reviews h2{
+    font-size:24px;font-weight:900;margin-bottom:25px;display:flex;align-items:center;gap:12px;
+    background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;
 }
 
+/* Add Review Form */
+.review-form{margin-bottom:30px;padding:25px;background:linear-gradient(135deg,rgba(255,107,53,0.08),rgba(255,165,0,0.08));border-radius:20px;border:2px solid var(--border);}
+.review-form h3{font-size:18px;margin-bottom:15px;font-weight:900;}
+.stars-input{display:flex;gap:10px;font-size:32px;color:#cbd5e1;margin-bottom:15px;cursor:pointer;}
+.stars-input i.active{color:var(--warning);transform:scale(1.2);}
+.review-form textarea{
+    width:100%;padding:16px;border:2px solid var(--border);border-radius:15px;margin-bottom:15px;
+    font-family:'Poppins','Noto Sans Bengali';resize:vertical;font-weight:600;font-size:15px;
+}
+.review-form textarea:focus{outline:none;border-color:var(--primary);}
+.review-form button{
+    padding:14px 30px;background:var(--gradient);color:#fff;border:none;border-radius:15px;
+    font-weight:900;cursor:pointer;font-size:16px;box-shadow:0 6px 20px rgba(255,107,53,.3);
+}
+
+/* Review List */
+.review-item{border-bottom:2px solid var(--border);padding:20px 0;}
+.review-item:last-child{border:none;}
+.review-header{display:flex;justify-content:space-between;margin-bottom:10px;}
+.review-user{font-weight:900;color:var(--text);}
+.review-date{font-size:13px;color:var(--muted);font-weight:700;}
+.review-stars{color:var(--warning);margin-bottom:8px;font-size:16px;}
+.review-text{color:var(--muted);line-height:1.8;font-weight:600;}
+
+.loading{text-align:center;padding:100px;color:var(--primary);font-weight:900;font-size:20px;}
+
+/* Sticky Add to Cart Mobile */
+.sticky-cart{
+    position:fixed;bottom:0;left:0;right:0;background:var(--card);backdrop-filter:blur(30px);
+    padding:18px 20px;box-shadow:0 -8px 40px rgba(255,107,53,.2);display:flex;gap:15px;z-index:99;
+    border-top:2px solid var(--border);
+}
+@media(min-width:992px){.sticky-cart{display:none;}}
+.discount-badge{
+    display:inline-block;background:linear-gradient(135deg,var(--danger),#dc2626);color:#fff;
+    padding:8px 15px;border-radius:12px;font-size:14px;font-weight:900;margin-bottom:10px;
+    box-shadow:0 4px 15px rgba(239,68,68,0.3);
+}
 .save-box{
-    display:inline-block;
-    background:#16a34a;
-    color:#fff;
-    padding:6px 12px;
-    border-radius:8px;
-    font-size:13px;
-    font-weight:700;
-    margin-bottom:15px;
+    display:inline-block;background:linear-gradient(135deg,var(--success),#15803D);color:#fff;
+    padding:8px 15px;border-radius:12px;font-size:14px;font-weight:900;margin-bottom:18px;
+    box-shadow:0 4px 15px rgba(22,163,74,0.3);
 }
 </style>
 </head>
@@ -128,16 +162,16 @@ body{background:#f8fafc;padding-bottom:100px;}
                     <span id="reviewCount">0 Reviews</span>
                 </div>
 
-           <div class="price-wrap">
-    <div class="current-price" id="currentPrice"></div>
-    <div class="old-price" id="oldPrice"></div>
-</div>
+                <div class="price-wrap">
+                    <div class="current-price" id="currentPrice"></div>
+                    <div class="old-price" id="oldPrice"></div>
+                </div>
 
-<div id="discountArea"></div>
+                <div id="discountArea"></div>
 
-<div class="stock">
-    <i class="fa-solid fa-check-circle"></i> In Stock
-</div>
+                <div class="stock">
+                    <i class="fa-solid fa-check-circle"></i> In Stock
+                </div>
                 <p class="desc" id="prodDesc"></p>
 
                 <div class="btn-group">
@@ -188,7 +222,6 @@ const db = getFirestore(app);
 let currentProduct = null;
 let selectedRating = 0;
 
-// Get Product ID from URL
 const params = new URLSearchParams(window.location.search);
 const productId = params.get("id");
 
@@ -214,27 +247,23 @@ async function loadProduct(){
 
 function renderProduct(){
     const p = currentProduct;
-const current = Number(p.currentPrice || 0);
-const old = Number(p.oldPrice || 0);
+    const current = Number(p.currentPrice || 0);
+    const old = Number(p.oldPrice || 0);
+    const discount = old > current? Math.round(((old - current) / old) * 100) : 0;
+    const saveAmount = old > current? old - current : 0;
 
-const discount = old > current
-    ? Math.round(((old - current) / old) * 100)
-    : 0;
-
-const saveAmount = old > current
-    ? old - current
-    : 0;
-    document.getElementById('pageTitle').innerText = p.name + ' - HUTBAZ';
+    document.getElementById('pageTitle').innerText = p.name + ' - BD SHOP'; // CHANGED
     document.getElementById('prodName').innerText = p.name;
     document.getElementById('prodDesc').innerText = p.description || 'No description available';
-    document.getElementById('currentPrice').innerText = '৳' + Number(p.currentPrice).toFixed(2);
-    document.getElementById('oldPrice').innerText = p.oldPrice? '৳' + Number(p.oldPrice).toFixed(2) : '';
-   document.getElementById("discountArea").innerHTML =
-old > current ? `
-<div class="discount-badge">🔥 ${discount}% OFF</div>
-<div class="save-box">Save ৳${saveAmount}</div>
-` : "";
-    // Images
+    document.getElementById('currentPrice').innerText = '৳' + current.toFixed(2);
+    document.getElementById('oldPrice').innerText = old > current? '৳' + old.toFixed(2) : '';
+
+    document.getElementById("discountArea").innerHTML =
+    old > current? `
+        <div class="discount-badge">🔥 ${discount}% OFF</div>
+        <div class="save-box">Save ৳${saveAmount.toFixed(2)}</div>
+    ` : "";
+
     const images = p.images || [p.image];
     document.getElementById('mainImg').src = images[0];
     document.getElementById('thumbs').innerHTML = images.map((img,i) =>
@@ -251,13 +280,12 @@ window.changeImg = (el, src) => {
     el.classList.add('active');
 }
 
-// Cart Functions
 window.addToCart = () => {
-    let cart = JSON.parse(localStorage.getItem('hutbaz_cart')) || [];
+    let cart = JSON.parse(localStorage.getItem('bdshop_cart')) || []; // CHANGED
     const existing = cart.find(item => item.id === currentProduct.id);
     if(existing){ existing.qty += 1; }
-    else { cart.push({...currentProduct, qty: 1}); }
-    localStorage.setItem('hutbaz_cart', JSON.stringify(cart));
+    else { cart.push({...currentProduct, qty: 1, price: Number(currentProduct.currentPrice)}); } // Added price
+    localStorage.setItem('bdshop_cart', JSON.stringify(cart)); // CHANGED
     alert(`✅ ${currentProduct.name} added to cart`);
     updateCartCount();
 }
@@ -268,12 +296,11 @@ window.buyNow = () => {
 }
 
 function updateCartCount(){
-    const cart = JSON.parse(localStorage.getItem('hutbaz_cart')) || [];
+    const cart = JSON.parse(localStorage.getItem('bdshop_cart')) || []; // CHANGED
     const total = cart.reduce((sum, item) => sum + item.qty, 0);
     document.getElementById('cartCount').innerText = total;
 }
 
-// Review System - LocalStorage
 const starInput = document.getElementById('starInput');
 starInput.querySelectorAll('i').forEach(star => {
     star.onclick = () => {
@@ -289,14 +316,14 @@ window.submitReview = () => {
     const text = document.getElementById('reviewText').value.trim();
     if(!text){ alert("Please write a review"); return; }
 
-    const reviews = JSON.parse(localStorage.getItem(`hutbaz_reviews_${productId}`)) || [];
+    const reviews = JSON.parse(localStorage.getItem(`bdshop_reviews_${productId}`)) || []; // CHANGED
     reviews.push({
-    rating: selectedRating,
-    text: text,
-    date: new Date().toLocaleDateString("en-GB"),
-    user: 'Guest User'
-});
-    localStorage.setItem(`hutbaz_reviews_${productId}`, JSON.stringify(reviews));
+        rating: selectedRating,
+        text: text,
+        date: new Date().toLocaleDateString("en-GB"),
+        user: 'Guest User'
+    });
+    localStorage.setItem(`bdshop_reviews_${productId}`, JSON.stringify(reviews)); // CHANGED
 
     document.getElementById('reviewText').value = '';
     selectedRating = 0;
@@ -304,9 +331,9 @@ window.submitReview = () => {
     loadReviews();
     alert("✅ Review Submitted");
 }
-function getProductMeta(id){
-    let meta = JSON.parse(localStorage.getItem("hutbaz_meta")) || {};
 
+function getProductMeta(id){
+    let meta = JSON.parse(localStorage.getItem("bdshop_meta")) || {}; // CHANGED
     if(!meta[id]){
         meta[id] = {
             rating: (Math.random() * 0.5 + 4.4).toFixed(1),
@@ -314,35 +341,22 @@ function getProductMeta(id){
             sold: Math.floor(Math.random() * 1000 + 200),
             liked: false
         };
-
-        localStorage.setItem("hutbaz_meta", JSON.stringify(meta));
+        localStorage.setItem("bdshop_meta", JSON.stringify(meta)); // CHANGED
     }
-
     return meta[id];
 }
+
 const reviewTexts = [
-"Excellent quality. Highly recommended.",
-"Very good product. Worth the price.",
-"Fast delivery and nice packaging.",
-"Original product. I'm satisfied.",
-"Good quality and works perfectly.",
-"Amazing product. Will buy again.",
-"Exactly as described. Thanks seller.",
-"Premium quality. Five stars.",
-"Very useful product. Loved it.",
-"Received in good condition.",
-"Nice finishing and durable.",
-"Best product in this price range.",
-"Good service and fast shipping.",
-"Happy with my purchase.",
-"Quality exceeded my expectations."
+"Excellent quality. Highly recommended.","Very good product. Worth the price.","Fast delivery and nice packaging.",
+"Original product. I'm satisfied.","Good quality and works perfectly.","Amazing product. Will buy again.",
+"Exactly as described. Thanks seller.","Premium quality. Five stars.","Very useful product. Loved it.",
+"Received in good condition.","Nice finishing and durable.","Best product in this price range.",
+"Good service and fast shipping.","Happy with my purchase.","Quality exceeded my expectations."
 ];
 
 const customerNames = [
-"Rahim","Karim","Hasan","Jahid","Sakib",
-"Nayeem","Rakib","Mamun","Rasel","Tanvir",
-"Rifat","Mizan","Shakil","Arif","Imran",
-"Nusrat","Mim","Sadia","Tania","Jannat"
+"Rahim","Karim","Hasan","Jahid","Sakib","Nayeem","Rakib","Mamun","Rasel","Tanvir",
+"Rifat","Mizan","Shakil","Arif","Imran","Nusrat","Mim","Sadia","Tania","Jannat"
 ];
 
 function randomDate(days = 180){
@@ -352,66 +366,45 @@ function randomDate(days = 180){
 }
 
 function generateReviews(id){
-
-    let data = JSON.parse(localStorage.getItem("hutbaz_fake_reviews")) || {};
-
+    let data = JSON.parse(localStorage.getItem("bdshop_fake_reviews")) || {}; // CHANGED
     if(!data[id]){
-
         const total = Math.floor(Math.random() * 8) + 5;
-
         data[id] = [];
-
         for(let i=0;i<total;i++){
-
             data[id].push({
                 user: customerNames[Math.floor(Math.random()*customerNames.length)],
-                rating: Math.floor(Math.random()*2)+4, // 4-5 Star
+                rating: Math.floor(Math.random()*2)+4,
                 text: reviewTexts[Math.floor(Math.random()*reviewTexts.length)],
                 date: randomDate()
             });
-
         }
-
-        localStorage.setItem("hutbaz_fake_reviews", JSON.stringify(data));
+        localStorage.setItem("bdshop_fake_reviews", JSON.stringify(data)); // CHANGED
     }
-
     return data[id];
 }
 
 function loadReviews(){
-
     const meta = getProductMeta(productId);
-
     const fakeReviews = generateReviews(productId);
-    const userReviews = JSON.parse(localStorage.getItem(`hutbaz_reviews_${productId}`)) || [];
+    const userReviews = JSON.parse(localStorage.getItem(`bdshop_reviews_${productId}`)) || []; // CHANGED
+    const reviews = [...userReviews.slice().reverse(),...fakeReviews];
 
-    const reviews = [...userReviews.slice().reverse(), ...fakeReviews];
-    document.getElementById("reviewCount").innerText =
-        `${meta.reviews + userReviews.length} Reviews`;
-
+    document.getElementById("reviewCount").innerText = `${meta.reviews + userReviews.length} Reviews`;
     document.getElementById("avgStars").innerHTML =
-        "★".repeat(Math.round(meta.rating)) +
-        "☆".repeat(5 - Math.round(meta.rating));
+        "★".repeat(Math.round(meta.rating)) + "☆".repeat(5 - Math.round(meta.rating));
 
-    document.getElementById("reviewList").innerHTML =
-        reviews.map(r => `
-            <div class="review-item">
-                <div class="review-header">
-                    <div class="review-user">${r.user}</div>
-                    <div class="review-date">${r.date}</div>
-                </div>
-
-                <div class="review-stars">
-                    ${"★".repeat(r.rating)}
-                    ${"☆".repeat(5-r.rating)}
-                </div>
-
-                <div class="review-text">
-                    ${r.text}
-                </div>
+    document.getElementById("reviewList").innerHTML = reviews.map(r => `
+        <div class="review-item">
+            <div class="review-header">
+                <div class="review-user">${r.user}</div>
+                <div class="review-date">${r.date}</div>
             </div>
-        `).join("");
+            <div class="review-stars">${"★".repeat(r.rating)}${"☆".repeat(5-r.rating)}</div>
+            <div class="review-text">${r.text}</div>
+        </div>
+    `).join("");
 }
+
 loadProduct();
 </script>
 </body>
