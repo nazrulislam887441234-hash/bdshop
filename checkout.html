@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Checkout - HUTBAZ</title>
+<title>Checkout -BD SHOP</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{--primary:#2563eb;--accent:#16a34a;--danger:#ef4444;--gradient:linear-gradient(135deg,#2563eb,#1e40af);}
@@ -25,90 +25,52 @@ label{font-weight:600;margin-top:12px;display:block;font-size:14px;}
 .btn{width:100%;padding:18px;margin-top:20px;background:var(--gradient);border:none;border-radius:15px;color:#fff;font-weight:800;font-size:17px;cursor:pointer;box-shadow:0 8px 25px rgba(37,99,235,.3);}
 .btn:disabled{background:#cbd5e1;cursor:not-allowed;box-shadow:none;}
 .btn-cancel{background:#f1f5f9;color:#475569;margin-top:10px;box-shadow:none;}
-
-/* Popup */
 .popup{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:999;}
 .popup-box{background:#fff;padding:30px;border-radius:25px;text-align:center;max-width:420px;width:90%;}
 .popup-box h3{margin-bottom:10px;font-size:22px;font-weight:800;}
-.popup-box p{color:#64748b;margin-bottom:20px;}
-.popup-icon{font-size:50px;margin-bottom:15px;}
 .order-id{background:#eff6ff;padding:12px;border-radius:12px;font-weight:700;font-size:18px;margin:15px 0;display:flex;justify-content:space-between;align-items:center;border:1px dashed var(--primary);}
 .copy-btn{background:var(--primary);color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700;}
 .popup-btn{padding:12px 25px;border:none;border-radius:12px;font-weight:700;cursor:pointer;font-size:16px;background:var(--primary);color:#fff;}
-.success{color:var(--accent);} .error{color:var(--danger);}
 @media(max-width:800px){.container{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- Left: Cart Summary -->
     <div class="card">
         <h2><i class="fa-solid fa-cart-shopping" style="color:var(--primary);"></i> Your Order</h2>
         <div id="cartSummary"></div>
-        <div class="summary-row">
-            <span>Subtotal:</span>
-            <span id="subTotal">৳0.00</span>
-        </div>
-        <div class="summary-row">
-            <span>Delivery Charge:</span>
-            <span id="deliveryCharge">৳0.00</span>
-        </div>
-        <div class="total-row">
-            <span>Grand Total:</span>
-            <span id="totalAmount">৳0.00</span>
-        </div>
+        <div class="summary-row"><span>Subtotal:</span><span id="subTotal">৳0.00</span></div>
+        <div class="summary-row"><span>Delivery Charge:</span><span id="deliveryCharge">৳0.00</span></div>
+        <div class="total-row"><span>Grand Total:</span><span id="totalAmount">৳0.00</span></div>
     </div>
 
-    <!-- Right: Form -->
     <div class="card">
         <h2><i class="fa-solid fa-truck-fast" style="color:var(--primary);"></i> Delivery Information</h2>
         <form id="orderForm">
             <label>Full Name *</label>
             <input type="text" id="name" required>
-
             <label>Phone Number *</label>
             <input type="tel" id="phone" required>
-
-            <label>Division *</label>
-            <select id="division" required>
-                <option value="">Select Division</option>
-                <option>Dhaka</option><option>Chittagong</option><option>Rajshahi</option>
-                <option>Khulna</option><option>Barisal</option><option>Sylhet</option>
-                <option>Rangpur</option><option>Mymensingh</option>
-            </select>
-
-            <label>District *</label>
-            <input type="text" id="district" required>
-
-            <label>Thana *</label>
-            <input type="text" id="thana" required>
-
-            <label>Full Address *</label>
-            <textarea id="address" rows="3" required></textarea>
-
-            <label>Order Note</label>
-            <textarea id="note" rows="2" placeholder="Optional"></textarea>
-
+            <label>Delivery Area *</label>
+            <div id="location-selector"></div>
+            <label>Order Note (Optional)</label>
+            <textarea id="note" rows="2"></textarea>
             <button type="submit" class="btn" id="submitBtn">Confirm Order</button>
             <button type="button" class="btn btn-cancel" onclick="goToCart()">Cancel</button>
         </form>
     </div>
 </div>
 
-<!-- Popup -->
 <div class="popup" id="popup">
     <div class="popup-box">
-        <div class="popup-icon" id="popupIcon"></div>
+        <div id="popupIcon" style="font-size:50px;"></div>
         <h3 id="popupTitle"></h3>
         <p id="popupMsg"></p>
         <div id="orderIdBox" style="display:none;">
-            <div class="order-id">
-                <span id="orderIdText"></span>
-                <button class="copy-btn" onclick="copyOrderId()">Copy</button>
-            </div>
+            <div class="order-id"><span id="orderIdText"></span><button class="copy-btn" onclick="copyOrderId()">Copy</button></div>
         </div>
-        <button class="popup-btn" id="popupBtn" onclick="closePopup()">OK</button>
+        <button class="popup-btn" onclick="closePopup()">OK</button>
     </div>
 </div>
 
@@ -120,131 +82,126 @@ const firebaseConfig = {apiKey:"AIzaSyA7iGMmxsXkAP_zKqTECGHIV1bJQ0IpBF0",authDom
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// FIX 1: key change from 'cart' to 'hutbaz_cart'
 let cart = JSON.parse(localStorage.getItem('hutbaz_cart')) || [];
-let currentOrderId = '';
 let subTotal = 0;
 let deliveryCharge = 0;
+window.changeQty = (id, change) => {
 
-// Cart Load
-function loadCart(){
-    const summary = document.getElementById('cartSummary');
-    if(cart.length == 0){ 
-        showPopup('error', 'Cart is Empty', 'Please add products to cart first', 'cart.html');
-        return; 
+    let index = cart.findIndex(item => item.id == id);
+
+    if(index === -1) return;
+
+    cart[index].qty += change;
+
+    // Quantity 0 হলে remove
+    if(cart[index].qty <= 0){
+        cart.splice(index,1);
     }
-    
+
+    localStorage.setItem("hutbaz_cart", JSON.stringify(cart));
+
+    loadCart();
+};
+
+function loadCart(){
+window.addEventListener("locationChanged", () => {
+    updateDeliveryCharge();
+});
+
+setTimeout(() => {
+    updateDeliveryCharge();
+}, 300);
+    const summary = document.getElementById('cartSummary');
+    if(cart.length == 0){ window.location.href = 'cart.html'; return; }
     subTotal = 0;
     summary.innerHTML = '';
     cart.forEach(item => {
         subTotal += Number(item.price || item.currentPrice) * item.qty;
         summary.innerHTML += `
-        <div class="cart-item">
-           <img src="${item.images?.[0] || item.image}">
-            <div class="cart-info">
-                <h4>${item.name}</h4>
-             <p>৳${item.price || item.currentPrice} × ${item.qty}</p>
-            </div>
-        </div>`;
+<div class="cart-item">
+    <img src="${item.images?.[0] || item.image}">
+    <div class="cart-info">
+        <h4>${item.name}</h4>
+        <p>৳${item.price || item.currentPrice}</p>
+
+        <div style="display:flex;align-items:center;gap:10px;margin-top:8px;">
+            <button onclick="changeQty('${item.id}', -1)" 
+            style="width:30px;height:30px;border:none;background:#ef4444;color:white;border-radius:8px;font-weight:bold;">−</button>
+
+            <span style="font-weight:700;">${item.qty}</span>
+
+            <button onclick="changeQty('${item.id}', 1)" 
+            style="width:30px;height:30px;border:none;background:#16a34a;color:white;border-radius:8px;font-weight:bold;">+</button>
+        </div>
+
+    </div>
+</div>`;
     });
     document.getElementById('subTotal').innerText = '৳' + subTotal.toFixed(2);
-    calculateTotal();
-}
-loadCart();
-
-// Delivery Charge Calculate
-function calculateTotal(){
-    const division = document.getElementById('division').value;
-    deliveryCharge = (division == 'Dhaka') ? 60 : 120;
-    if(!division) deliveryCharge = 0;
-    
-    document.getElementById('deliveryCharge').innerText = '৳' + deliveryCharge.toFixed(2);
-    document.getElementById('totalAmount').innerText = '৳' + (subTotal + deliveryCharge).toFixed(2);
-}
-document.getElementById('division').addEventListener('change', calculateTotal);
-
-// Order ID Generate
-function generateOrderId(){
-    return 'HUT' + Date.now().toString().slice(-8) + Math.floor(Math.random()*100);
+    updateDeliveryCharge();
 }
 
-// Form Submit
+window.updateDeliveryCharge = () => {
+    if (!window.bdLocation) return;
+
+    const loc = window.bdLocation.getSelectedLocation();
+
+    if (!loc.division) {
+        deliveryCharge = 0;
+    } else if (loc.division === "Dhaka") {
+        deliveryCharge = 60;
+    } else {
+        deliveryCharge = 120;
+    }
+
+    document.getElementById("deliveryCharge").innerText = "৳" + deliveryCharge;
+    document.getElementById("totalAmount").innerText = "৳" + (subTotal + deliveryCharge);
+setTimeout(updateDeliveryCharge, 300);
+};
+
 document.getElementById('orderForm').onsubmit = async (e) => {
     e.preventDefault();
-    const btn = document.getElementById('submitBtn');
-    btn.disabled = true;
-    btn.innerText = "Processing...";
+    const loc = window.bdLocation.getSelectedLocation();
+    if(!loc.division || !loc.district || !loc.upazila){ alert("Please select your full location!"); return; }
 
-    currentOrderId = generateOrderId();
-    let grandTotal = subTotal + deliveryCharge;
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true; btn.innerText = "Processing...";
 
     try {
+        const orderId = 'HUT' + Date.now().toString().slice(-8);
         await addDoc(collection(db, "orders"), {
-            orderId: currentOrderId,
-            guest: true,
+            orderId,
             name: document.getElementById('name').value,
             phone: document.getElementById('phone').value,
-            division: document.getElementById('division').value,
-            district: document.getElementById('district').value,
-            thana: document.getElementById('thana').value,
-            address: document.getElementById('address').value,
+            division: loc.division,
+            district: loc.district,
+            thana: loc.upazila,
             note: document.getElementById('note').value,
             items: cart,
-            subTotal: subTotal,
-            deliveryCharge: deliveryCharge,
-            total: grandTotal,
+            total: subTotal + deliveryCharge,
             status: "New",
             createdAt: serverTimestamp()
         });
-        
-        // FIX 2: remove 'hutbaz_cart' not 'cart'
         localStorage.removeItem('hutbaz_cart');
-        document.getElementById('orderIdText').innerText = currentOrderId;
+        document.getElementById('orderIdText').innerText = orderId;
         document.getElementById('orderIdBox').style.display = 'block';
-        showPopup('success', 'Order Successful!', 'We received your order. Use this ID to track:', 'home');
-
-    } catch(err){
-        showPopup('error', 'Order Failed', 'Error: ' + err.message, 'close');
-        btn.disabled = false;
-        btn.innerText = "Confirm Order";
-    }
+        showPopup('✅', 'Order Successful!', 'Use this ID to track your order.');
+    } catch(err){ showPopup('❌', 'Order Failed', err.message); btn.disabled = false; btn.innerText = "Confirm Order"; }
 }
 
-// Popup Function
-function showPopup(type, title, msg, action){
-    const popup = document.getElementById('popup');
+function showPopup(icon, title, msg){
+    document.getElementById('popupIcon').innerText = icon;
     document.getElementById('popupTitle').innerText = title;
     document.getElementById('popupMsg').innerText = msg;
-    document.getElementById('popupBtn').onclick = () => handlePopupAction(action);
-    
-    if(type == 'success'){
-        document.getElementById('popupIcon').innerHTML = '✅';
-        document.getElementById('popupTitle').className = 'success';
-    } else {
-        document.getElementById('popupIcon').innerHTML = '❌';
-        document.getElementById('popupTitle').className = 'error';
-        document.getElementById('orderIdBox').style.display = 'none';
-    }
-    popup.style.display = 'flex';
+    document.getElementById('popup').style.display = 'flex';
 }
 
-function handlePopupAction(action){
-    if(action == 'home') window.location.href = 'index.html';
-    if(action == 'cart.html') window.location.href = 'cart.html';
-    if(action == 'close') closePopup();
-}
-
-window.closePopup = () => document.getElementById('popup').style.display = 'none';
+window.closePopup = () => { document.getElementById('popup').style.display = 'none'; window.location.href = 'index.html'; }
+window.copyOrderId = () => { navigator.clipboard.writeText(document.getElementById('orderIdText').innerText); alert("Copied!"); }
 window.goToCart = () => window.location.href = 'cart.html';
 
-// Copy Order ID
-window.copyOrderId = () => {
-    const text = document.getElementById('orderIdText').innerText;
-    navigator.clipboard.writeText(text).then(() => {
-        showPopup('success', 'Copied!', 'Order ID copied: ' + text, 'close');
-    });
-}
+loadCart();
 </script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="location.js"></script>
 </body>
 </html>
